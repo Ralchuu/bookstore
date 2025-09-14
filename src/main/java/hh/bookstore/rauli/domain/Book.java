@@ -10,8 +10,7 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;  // JPA needs a primary key
-
+    private Long id;  
     private String title;
     private String author;
     private int publicationYear;

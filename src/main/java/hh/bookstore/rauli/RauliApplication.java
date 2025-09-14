@@ -18,9 +18,9 @@ public class RauliApplication {
 	@Bean
 	CommandLineRunner initDatabase(BookRepository repository) {
 		return args -> {
-			repository.save(new Book("Clean Code", "Robert C. Martin", 2008, "9780132350884", 45.99));
-			repository.save(new Book("Effective Java", "Joshua Bloch", 2018, "9780134685991", 54.99));
-			repository.save(new Book("Design Patterns", "Erich Gamma", 1994, "9780201633610", 39.99));
+			repository.save(new Book("Hauska Kirja", "Gandalf J. Peikkonen", 1754, "987654321", 45.99));
+			repository.save(new Book("Metsäretki", "Frodo K. Peltomyyrä", 2018, "123456789", 54.99));
+			repository.save(new Book("Sienikirja", "Sieni Keräilijänen", 1994, "4545454545", 39.99));
 		};
 	}
 }

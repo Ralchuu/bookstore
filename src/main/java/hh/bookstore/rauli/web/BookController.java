@@ -24,7 +24,6 @@ public class BookController {
         return "booklist";
     }
 
-    // CREATE
     @GetMapping("/addbook")
     public String addBookForm(Model model) {
         model.addAttribute("book", new Book());
@@ -37,10 +36,25 @@ public class BookController {
         return "redirect:/booklist";
     }
 
-    // DELETE
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") Long id) {
         bookRepository.deleteById(id);
+        return "redirect:/booklist";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editBookForm(@PathVariable("id") Long id, Model model) {
+        Book book = bookRepository.findById(id).orElse(null);
+        if (book == null) {
+            return "redirect:/booklist";
+        }
+        model.addAttribute("book", book);
+        return "editbook";
+    }
+
+    @PostMapping("/edit")
+    public String updateBook(@ModelAttribute Book book) {
+        bookRepository.save(book);
         return "redirect:/booklist";
     }
 }
