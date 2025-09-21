@@ -6,12 +6,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import hh.bookstore.rauli.domain.BookRepository;
 import hh.bookstore.rauli.domain.Book;
+import hh.bookstore.rauli.domain.Category;
+import hh.bookstore.rauli.domain.CategoryRepository;
 
 @Controller
 public class BookController {
 
     @Autowired
     private BookRepository bookRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @GetMapping("/index")
     public String index() {
@@ -27,18 +32,15 @@ public class BookController {
     @GetMapping("/addbook")
     public String addBookForm(Model model) {
         model.addAttribute("book", new Book());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "addbook";
     }
 
     @PostMapping("/addbook")
-    public String addBookSubmit(@ModelAttribute Book book) {
+    public String addBookSubmit(@ModelAttribute Book book, @RequestParam Long categoryId) {
+        Category category = categoryRepository.findById(categoryId).orElse(null);
+        book.setCategory(category);
         bookRepository.save(book);
-        return "redirect:/booklist";
-    }
-
-    @GetMapping("/delete/{id}")
-    public String deleteBook(@PathVariable("id") Long id) {
-        bookRepository.deleteById(id);
         return "redirect:/booklist";
     }
 
@@ -49,12 +51,21 @@ public class BookController {
             return "redirect:/booklist";
         }
         model.addAttribute("book", book);
+        model.addAttribute("categories", categoryRepository.findAll());
         return "editbook";
     }
 
     @PostMapping("/edit")
-    public String updateBook(@ModelAttribute Book book) {
+    public String updateBook(@ModelAttribute Book book, @RequestParam Long categoryId) {
+        Category category = categoryRepository.findById(categoryId).orElse(null);
+        book.setCategory(category);
         bookRepository.save(book);
+        return "redirect:/booklist";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable("id") Long id) {
+        bookRepository.deleteById(id);
         return "redirect:/booklist";
     }
 }

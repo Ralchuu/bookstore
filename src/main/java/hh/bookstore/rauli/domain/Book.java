@@ -1,10 +1,6 @@
 package hh.bookstore.rauli.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class Book {
@@ -19,6 +15,7 @@ public class Book {
     private double price;
 
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Book() {}
@@ -58,9 +55,9 @@ public class Book {
         return "Book [id=" + id +
                ", title=" + title +
                ", author=" + author +
-               ", year=" + publicationYear +
+               ", publicationYear=" + publicationYear +
                ", isbn=" + isbn +
                ", price=" + price +
-               ", category=" + category.getName() + "]";
+               ", category=" + (category != null ? category.getName() : "none") + "]";
     }
 }
