@@ -28,9 +28,9 @@ public class RauliApplication {
             System.out.println("= Categories =");
             categoryRepo.findAll().forEach(cat -> System.out.println("Category: " + cat));
 
-            Book b1 = bookRepo.save(new Book("Hauska Kirja", "Gandalf J. Peikkonen", 1754, "987654321", 45.99, fantasy));
-            Book b2 = bookRepo.save(new Book("Metsäretki", "Frodo K. Peltomyyrä", 2018, "123456789", 54.99, scifi));
-            Book b3 = bookRepo.save(new Book("Sienikirja", "Sieni Keräilijänen", 1994, "4545454545", 39.99, biography));
+            bookRepo.save(new Book("Hauska Kirja", "Gandalf J. Peikkonen", 1754, "987654321", 45.99, fantasy));
+            bookRepo.save(new Book("Metsäretki", "Frodo K. Peltomyyrä", 2018, "123456789", 54.99, scifi));
+            bookRepo.save(new Book("Sienikirja", "Sieni Keräilijänen", 1994, "4545454545", 39.99, biography));
 
             System.out.println("= Books =");
             bookRepo.findAll().forEach(book -> System.out.println("Book: " + book));

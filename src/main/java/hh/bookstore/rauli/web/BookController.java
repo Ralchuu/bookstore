@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import hh.bookstore.rauli.domain.BookRepository;
 import hh.bookstore.rauli.domain.Book;
 import hh.bookstore.rauli.domain.Category;
@@ -63,6 +65,7 @@ public class BookController {
         return "redirect:/booklist";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") Long id) {
         bookRepository.deleteById(id);
