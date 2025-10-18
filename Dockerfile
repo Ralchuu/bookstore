@@ -1,6 +1,5 @@
-# =========================
+
 # Maven Build (Java 21)
-# =========================
 FROM maven:3.9.7-eclipse-temurin-21 AS build
 
 # Copy source code and pom.xml
@@ -10,9 +9,7 @@ COPY src /home/app/src/
 # Build the project
 RUN mvn -f /home/app/pom.xml clean package -DskipTests
 
-# =========================
 # Runtime Image (Java 21)
-# =========================
 FROM eclipse-temurin:21-jre
 
 # Copy the built jar from build stage
