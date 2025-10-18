@@ -16,10 +16,10 @@ RUN mvn -f /home/app/pom.xml clean package -DskipTests
 FROM eclipse-temurin:21-jre
 
 # Copy the built jar from build stage
-COPY --from=build /home/app/target/rauli-0.0.1-SNAPSHOT.jar /usr/local/lib/studentlistsecuredb.jar
+COPY --from=build /home/app/target/rauli-0.0.1-SNAPSHOT.jar /usr/local/lib/raulibookstore.jar
 
 # Expose the port your app runs on
 EXPOSE 8080
 
 # Start the application
-ENTRYPOINT ["java", "-jar", "/usr/local/lib/studentlistsecuredb.jar"]
+ENTRYPOINT ["java", "-jar", "/usr/local/lib/raulibookstore.jar"]
