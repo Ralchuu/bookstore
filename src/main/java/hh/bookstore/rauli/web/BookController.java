@@ -4,12 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.access.prepost.PreAuthorize;
-
 import hh.bookstore.rauli.domain.BookRepository;
 import hh.bookstore.rauli.domain.Book;
 import hh.bookstore.rauli.domain.Category;
 import hh.bookstore.rauli.domain.CategoryRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @Controller
 public class BookController {
@@ -49,9 +48,7 @@ public class BookController {
     @GetMapping("/edit/{id}")
     public String editBookForm(@PathVariable("id") Long id, Model model) {
         Book book = bookRepository.findById(id).orElse(null);
-        if (book == null) {
-            return "redirect:/booklist";
-        }
+        if (book == null) return "redirect:/booklist";
         model.addAttribute("book", book);
         model.addAttribute("categories", categoryRepository.findAll());
         return "editbook";
@@ -65,8 +62,8 @@ public class BookController {
         return "redirect:/booklist";
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteBook(@PathVariable("id") Long id) {
         bookRepository.deleteById(id);
         return "redirect:/booklist";

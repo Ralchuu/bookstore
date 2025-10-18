@@ -25,22 +25,30 @@
     <a href="/addbook" class="btn btn-primary mb-3">Add Book</a>
 
     <table class="table table-striped">
+        <thead>
         <tr>
             <th>Title</th>
             <th>Author</th>
             <th>Price</th>
             <th>Category</th>
-            <th sec:authorize="hasRole('ADMIN')">Actions</th>
+            <th>Actions</th>
         </tr>
+        </thead>
+        <tbody>
         <tr th:each="book : ${books}">
             <td th:text="${book.title}">Book Title</td>
             <td th:text="${book.author}">Author</td>
             <td th:text="${book.price}">9.99</td>
             <td th:text="${book.category != null ? book.category.name : 'N/A'}">Category</td>
-            <td sec:authorize="hasRole('ADMIN')">
-                <a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-xs btn-danger">Delete</a>
+            <td>
+                <a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary btn-sm">Edit</a>
+            
+                <a th:href="@{/delete/{id}(id=${book.id})}" 
+                   class="btn btn-danger btn-sm"
+                   sec:authorize="hasAuthority('ADMIN')">Delete</a>
             </td>
         </tr>
+        </tbody>
     </table>
 </div>
 </body>
